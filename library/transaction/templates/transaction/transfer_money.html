@@ -1,0 +1,8 @@
+<!-- transaction/money_transfer_form.html -->
+<form method="post" action="{% url 'money_transfer' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Transfer Money</button>
+    
+  </form>
+  

@@ -1,0 +1,59 @@
+{% extends "home2.html" %}
+
+{% block content1 %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 bg-white "><h5>All Categories</h5></div>
+        <div class="col-2 bg-white ">
+            <a href="{% url 'ALL' %}" class="btn btn-warning">All</a>
+        </div>
+        <div class="col-2 bg-white ">
+            <a href="{% url 'BMW' %}" class="btn btn-warning">BMW</a>
+        </div>
+        <div class="col-2 bg-white">
+            <a href="{% url 'MERCEDE' %}" class="btn btn-warning">Mercede</a>
+        </div>
+        <div class="col-2 bg-white">
+            <a href="{% url 'TATA' %}" class="btn btn-warning">TATA</a>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div>
+        <h1>Quality: {{ data|length|add:0 }}</h1>
+    </div>
+    <div class="row d-flex flex-wrap justify-content-center px-5 pt-5">
+        <div class="row d-flex flex-wrap justify-content-center px-5 pt-5">
+            {% for post in data %}
+                <div class="col-sm-4 mb-4">
+                    <div class="card">
+                        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'detail_post' post.id %}" class="text-decoration-none text-dark">{{ post.title }}</a>
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Category:
+                                {% if post.categories.all %}
+                                    {% for brand in post.categories.all %}
+                                        {{ brand.name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    No Brands Available
+                                {% endif %}
+                            </h6>
+                            <p class="card-text">{{ post.description|truncatewords:10 }}</p>
+                           
+                            <p class="card-text">Price: {{ post. borrowing_price }}</p>
+
+                            <a href="{% url 'buy_now' car_id=post.id %}" class="btn btn-warning"> Borrow Now </a>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</div>
+{% endblock %}
